@@ -1,0 +1,185 @@
+<ngx-ui-loader overlayColor="rgba(40, 40, 40, 0.2)" fgsType="ball-spin-fade-rotating" bgsType="ball-spin-fade-rotating"
+    bgsColor="#add" pbColor="blue" fgsColor="black">
+</ngx-ui-loader>
+<div class="filter-section">
+    <div class="left">
+        <div class="form-item">
+            <div class="menu-wrapper">
+                <img src="assets/images/falogo.png" (click)="navigateToHomePage()" class="finTech-logo cursor"
+                    alt="FinTech Australia">
+            </div>
+            <div class="menu-wrapper" style="margin-top: 10px;">
+                <p>&nbsp;</p>
+                <img src="assets/images/APP_Brandmark_Primary.png" (click)="navigateToAustralianPaymentPlusPage()"
+                    class="finTech-logo cursor" alt="Australian Payments Plus">
+            </div>
+        </div>
+        <div class="filter-fields" *ngIf="!isMobile">
+            <div class="form-item">
+                <mat-form-field appearance="outline">
+                    <mat-label>Province/ State</mat-label>
+                    <mat-select #state [(ngModel)]="provinceState" (selectionChange)="onStateSelection($event)">
+                        <mat-option value="all">All Australian States</mat-option>
+                        <mat-option *ngFor="let state of provinceStates" [value]="state.code">{{state.title.en}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+            <div class="form-item">
+                <mat-form-field appearance="outline">
+                    <mat-label>Target Customer</mat-label>
+                    <mat-select #customer [(ngModel)]="targetCustomer"
+                        (selectionChange)="onTargetCustomerSelection($event)">
+                        <mat-option value="all">All Target Customers</mat-option>
+                        <mat-option *ngFor="let tc of targetCustomers" [value]="tc.code">{{tc.title.en}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="form-item">
+                <mat-form-field appearance="outline">
+                    <mat-label>Member Type</mat-label>
+                    <mat-select [(ngModel)]="memberType" (selectionChange)="onMemberTypeChange($event)">
+                        <mat-option value="all">All</mat-option>
+                        <mat-option value="active">FinTech Australia Members</mat-option>
+                        <mat-option value="inactive">Non-Members</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="form-item">
+                <mat-form-field appearance="outline">
+                    <mat-label>Choose View</mat-label>
+                    <mat-select [(ngModel)]="view" (selectionChange)="onViewChange($event)">
+                        <mat-option value="pie">Pie</mat-option>
+                        <mat-option value="dir">Directory</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="form-item search-container">
+                <mat-form-field appearance="outline" class="small-input-field">
+                    <mat-label>Search</mat-label>
+                    <input matInput type="text" (input)="search()" [(ngModel)]="searchQuery" placeholder="Search...">
+                    <mat-icon matSuffix *ngIf="searchQuery.length < 1">search</mat-icon>
+                    <mat-icon *ngIf="!(searchQuery.length < 1)" (click)="clearSearch()" matSuffix class="cursor">close
+                    </mat-icon>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="form-item">
+            <div class="menu-wrapper">
+                <mat-icon (click)="openMenu()" class="cursor">menu</mat-icon>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="zoomable" (wheel)="zoom.onWheel($event, zoomAbleMap, zoomAbleDiv)"
+    (mousedown)="zoom.onMouseDown($event, zoomAbleMap, zoomAbleDiv)" (mouseup)="zoom.onMouseUp($event)"
+    (mousemove)="zoom.onMouseMove($event, zoomAbleMap)" #zoomAbleDiv *ngIf="view=='pie'">
+    <div id='ecosystem-map-circle' #zoomAbleMap>
+        <div class='ecosystem-map-content'>
+            <div class="center-aus-map" *ngIf="categories.length> 0">
+            </div>
+            <div class='wrap-slice ws-top ws-right' id="myElement">
+                <div class='slice top right' *ngFor="let category of categories; let i=index;"
+                    [style.transform]="'rotate(' + category.sliceAngle + 'deg)'" [id]="category.code">
+                    <div class='slice-content'>
+                        <p (click)="handleTitleClick(category)"
+                            [ngStyle]="{'background-color': category.backgroundColor, 'color': category.backgroundColor == '#91efff' ? '#000' : '#fff'}"
+                            (mouseenter)="onMouseEnterOnTitle(i, category.code)"
+                            (mouseleave)="onMouseLeaveOnTitle(i,category.code)" class="cat-title cursor">
+                            <span
+                                [style.transform]="((category.sliceAngle) > 90 && (category.sliceAngle) < 270) ?  'rotate(-180deg)' : ''">
+                                {{category.categoryName}}</span>
+                        </p>
+                        <div class="logos">
+                            <div class="logo-col" *ngFor="let colItem of category.categoryItems">
+                                <ng-template ngFor let-item [ngForOf]="colItem">
+                                    <img *ngIf="(item?.logoUrl)"
+                                        (mouseenter)="onMouseEnter($event, category.sliceAngle)"
+                                        (mouseleave)="onMouseLeave($event,category.sliceAngle)"
+                                        [style.transform]="'rotate(' + -category.sliceAngle + 'deg)'"
+                                        [style.width]=" logoWidth +'px'" [style.height]=" logoWidth +'px'"
+                                        [src]="item.logoInSvg ? svgLogoBaseUrl + item.logoInSvg : logoBaseUrl + '40x40/' + item.logoUrl"
+                                        (click)="handleLogoClick(item, category.code)" class="cursor logo-item" alt=""
+                                        [title]="item.companyName">
+
+                                    <div *ngIf="!(item?.logoUrl)"
+                                        (mouseenter)="onMouseEnter($event, category.sliceAngle)"
+                                        (mouseleave)="onMouseLeave($event,category.sliceAngle)"
+                                        [style.transform]="'rotate(' + -category.sliceAngle + 'deg)'"
+                                        [title]="item.companyName" [style.width]="logoWidth +'px'"
+                                        [style.height]=" logoWidth +'px'" (click)="handleLogoClick(item, category.code)"
+                                        class="logo-placeholder cursor">
+                                        <span [style.width]="logoWidth -4 +'px'" [style.height]=" logoWidth -4 +'px'"
+                                            class="logo-title">
+                                            {{item.shortName}}
+                                        </span>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="directory" *ngIf="!(view=='pie')">
+    <div class="dir-menu">
+        <div class="item" *ngFor="let category of categories; let i=index;">
+            <div class="menu-item cursor" (click)="clickCategoryItem(i, category)"
+                [class.active]="selectedCategory && category.code === selectedCategory.code">
+                {{category.categoryName}}
+            </div>
+            <hr class="line-separator">
+        </div>
+    </div>
+    <div class="dir-content" *ngIf="selectedCategory">
+        <div class="dir-header">
+            <h1 class="header-title">{{selectedCategory.categoryName}}</h1>
+            <div class="header-line">
+                <div class="line"></div>
+            </div>
+            <div class="sub-categories">
+                <div class="cat-item cursor" *ngFor="let subCat of this.subCategories; let i=index;"
+                    (click)="onSubCategoryClick(subCat)"
+                    [class.active]="selectedSubCategory && subCat.property === selectedSubCategory.property">
+                    <div class="item-content">
+                        {{subCat.tittle}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="sub-categories-segments">
+                <div class="cat-item cursor" *ngFor="let segment of this.segments; let i=index;"
+                    (click)="onSegmentClick(segment)"
+                    [class.active]="selectedSegment && segment.code === selectedSegment.code">
+                    <div class="item-content">
+                        {{segment.title.en}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dir-logos">
+            <div class="companies">
+                <ng-template ngFor let-item [ngForOf]="filteredSelectedCategory.companies">
+                    <img *ngIf="(item?.imageUrl)" (click)="companyDetail(item)"
+                        [src]="logoBaseUrl +  (isMobile ? '51x32/' : '160x80/') + item.imageUrl"
+                        class="company-logo cursor" [title]="item.companyName">
+
+                    <div *ngIf="!(item?.imageUrl)" (click)="companyDetail(item)" [title]="item.companyName"
+                        class="logo-placeholder cursor">
+                        <span class="logo-title">
+                            {{item.companyName.split(" ")[0]}}
+                        </span>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

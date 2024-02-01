@@ -1,0 +1,87 @@
+<div class="main-content">
+  <div class="header-2 pt-2">
+    <div class="sub-categories" *ngIf="!isMobile">
+      <div class="cat-item cat-bg" *ngFor="let cat of this.categories">
+        <div class="item-content">
+          {{cat.title.en}}
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isMobile">&nbsp;</div>
+    <mat-icon class="cursor" fontIcon="close" [mat-dialog-close]="true"></mat-icon>
+  </div>
+  <div mat-dialog-content>
+    <div class="flex">
+      <div class="details">
+        <div class="sub-categories" *ngIf="isMobile">
+          <div class="cat-item cat-bg" *ngFor="let cat of this.categories">
+            <div class="item-content">
+              {{cat.title.en}}
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="cat-item sub-cat-bg" *ngFor="let name of this.companySubCategories">
+            <div class="item-content">
+              {{name}}
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <div class="cat-item segment-bg" *ngFor="let name of this.companySegments">
+            <div class="item-content">
+              {{name}}
+            </div>
+          </div>
+        </div>
+        <h2 class="cat-title">{{member?.properties?.tradingname }}</h2>
+        <p>Registered As: {{member?.name }}</p>
+        <a *ngIf="member?.companyWebsiteAddress" href="{{member?.companyWebsiteAddress}}" class="website-info"
+          target="_blank">
+          <mat-icon svgIcon="website"></mat-icon> &nbsp;
+          {{member?.companyWebsiteAddress}}
+        </a>
+        <p class="description"><b>Description</b></p>
+        <p class="desc-text"> {{member?.properties?.companydescriptionmax100words}}</p>
+      </div>
+      <div class="logo">
+        <img *ngIf="member?.image" [ngStyle]="isMobile ? { 'width': '236px'} :{ 'width': '275px'}" style="width: 275px;"
+          [src]="logoBaseUrl +(isMobile ? '236x186/' : '275x217/')  + member?.image?.filename" alt="Card image cap" />
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="footer">
+    <div class="text-center horizontal-line">
+      <hr style="margin: 0;">
+    </div>
+    <div class="footer-section">
+      <div class="footer-item">
+        <mat-icon>location_on</mat-icon>&nbsp;
+        <span class="text-uppercase">{{member?.properties?.provincestate?.title?.en}}</span>
+      </div>
+      <div class="footer-item">
+        <mat-icon>domain</mat-icon>&nbsp;
+        <span class="text-uppercase">{{this.targetCustomers}}</span>
+      </div>
+      <div class="social-media">
+        <div class="more-info">
+          <div class="item">
+            <a *ngIf="member?.properties?.companyfacebookurl" href="{{member?.properties?.companyfacebookurl}}"
+              target="_blank">
+              <mat-icon svgIcon="facebook" class="cursor"></mat-icon>
+            </a> &nbsp;&nbsp;
+            <a *ngIf="member?.properties?.companytwitterhandle" href="{{member?.properties?.companytwitterhandle}}"
+              target="_blank">
+              <mat-icon svgIcon="twitter" class="cursor"></mat-icon>
+            </a>&nbsp;&nbsp;
+            <a *ngIf="member?.properties?.companylinkedinurl" href="{{member?.properties?.companylinkedinurl}}"
+              target="_blank">
+              <mat-icon svgIcon="linkedin" class="cursor"></mat-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

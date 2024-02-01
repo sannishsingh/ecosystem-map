@@ -1,0 +1,13 @@
+{
+    "routes": [
+      {
+        "src": "/v2/(.*)",
+        "dest": "https://api.glueup.com/v2/$1"
+      },
+      {
+        "src": "/logo/(.*)",
+        "dest": "https://fintechaustralia.glueup.com/resources/public/images/logo/$1"
+      }
+    ]
+  }
+  

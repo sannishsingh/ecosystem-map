@@ -1,0 +1,94 @@
+<div class="main-menu" [@slideRightToLeft]="dialogRef.getState()">
+  <div class="content">
+    <div class="close-icon">
+      <p style="font-size: 21px;">
+        <span *ngIf="!showResourceMenu">&nbsp;</span>
+        <span *ngIf="showResourceMenu">&nbsp;Resources</span>
+      </p>
+      <mat-icon (click)="close()" *ngIf="!showResourceMenu" class="cursor">close</mat-icon>
+      <mat-icon (click)="showResourceMenu = false; showContent()" *ngIf="showResourceMenu" class="cursor">chevron_left
+      </mat-icon>
+    </div>
+    <div class="filter-section" *ngIf="isMobile">
+      <div class="form-item">
+        <mat-form-field appearance="outline">
+          <mat-label>Province/ State</mat-label>
+          <mat-select #state [(ngModel)]="provinceState" (selectionChange)="onStateSelection($event)">
+            <mat-option value="all">All Australian States</mat-option>
+            <mat-option *ngFor="let state of provinceStates" [value]="state.code">{{state.title.en}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+      <div class="form-item">
+        <mat-form-field appearance="outline">
+          <mat-label>Target Customer</mat-label>
+          <mat-select #customer [(ngModel)]="targetCustomer" (selectionChange)="onTargetCustomerSelection($event)">
+            <mat-option value="all">All Target Customers</mat-option>
+            <mat-option *ngFor="let tc of targetCustomers" [value]="tc.code">{{tc.title.en}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-item">
+        <mat-form-field appearance="outline">
+          <mat-label>Member Type</mat-label>
+          <mat-select [(ngModel)]="memberType" (selectionChange)="onMemberTypeChange($event)">
+            <mat-option value="all">All</mat-option>
+            <mat-option value="active">FinTech Australia Members</mat-option>
+            <mat-option value="inactive">Non-Members</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-item">
+        <mat-form-field appearance="outline">
+          <mat-label>Choose View</mat-label>
+          <mat-select [(ngModel)]="view" (selectionChange)="onViewChange($event)">
+            <mat-option value="pie">Pie</mat-option>
+            <mat-option value="dir">Directory</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-item search-container">
+        <mat-form-field appearance="outline" class="small-input-field">
+          <mat-label>Search</mat-label>
+          <input matInput type="text" (input)="search()" [(ngModel)]="searchQuery" placeholder="Search...">
+          <mat-icon matSuffix *ngIf="searchQuery.length < 1">search</mat-icon>
+          <mat-icon *ngIf="!(searchQuery.length < 1)" (click)="clearSearch()" matSuffix class="cursor">close
+          </mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+    <ul class="menu-list" *ngIf="!showResourceMenu">
+      <div class="content" *ngIf="!showMenuContent" [@slideRightToLeft]>
+        <li><a href="https://www.fintechaustralia.org.au/" target="_blank">FinTech Australia Homepage</a></li>
+        <li>
+          <a href="javascript:void(0)" class="resources" (click)="showResourceMenu = true;showContent()">
+            <span>Resources &nbsp;</span>
+            <mat-icon class="cursor">chevron_right</mat-icon>
+          </a>
+        </li>
+        <li><a href="https://www.fintechaustralia.org.au/about-ecosystem-map" target="_blank">About Map</a></li>
+        <li><a href="https://www.fintechaustralia.org.au/list-on-ecosystem-map" target="_blank">Add/Edit my Fintech</a>
+        </li>
+        <li><a href="https://www.fintechaustralia.org.au/contact-us" target="_blank">Contact Us</a></li>
+        <li><a href="https://fintechaustralia.glueup.com/account/login" target="_blank">Login</a></li>
+      </div>
+    </ul>
+
+    <ul class="menu-list" *ngIf="showResourceMenu">
+      <div class="content" *ngIf="showMenuContent" [@slideRightToLeft]>
+        <li><a href="https://www.fintechaustralia.org.au/ey-fintech-census" target="_blank">EY Census</a></li>
+        <li><a href="https://www.fintechaustralia.org.au/service-providers/" target="_blank">Services Directory</a></li>
+        <li><a href="https://investors.fintechaustralia.org.au/" target="_blank">Regulatory Map</a></li>
+        <li><a href="https://investors.fintechaustralia.org.au/" target="_blank">Investor Map</a></li>
+      </div>
+    </ul>
+    <ul class="sponsored-info">
+      <p class="sponsored-title">Sponsored By</p>
+      <img src="assets/images/APP_Brandmark_Primary.png" (click)="navigateToAustralianPaymentPlusPage()"
+        class="paymentplus-logo cursor" alt="Australian Payments Plus">
+    </ul>
+  </div>
+</div>

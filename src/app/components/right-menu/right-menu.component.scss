@@ -1,0 +1,79 @@
+
+
+.main-menu {
+    overflow-x: hidden;
+    .close-icon {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .menu-list {
+        padding-left: 0!important;
+
+        .resources {
+            display: flex!important;
+            justify-items: center;
+        }
+    }
+
+    .menu-list li {
+        display: block;
+        width: 100%;
+        padding: 20px 8px;
+    }
+    
+    .menu-list li a {
+        display: block;
+        text-decoration: none;
+        outline: none;
+        font-size: 21px;
+        font-weight: 700;
+        color: #4B4F58;
+    }
+    
+    .menu-button:hover + .menu-list {
+        display: block;
+    }
+
+    .filter-section {
+        .form-item {
+          width: 100%;
+          font-size: 12px;
+          .mat-form-field {
+            width: 100%;
+          }
+        }
+      }
+      
+}
+
+.slideRightToLeftAnimation {
+    .mat-dialog-container {
+      max-width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      right: 0;
+      transform: translateX(100%);
+    }
+  
+    &.mat-dialog-container {
+      &.mat-dialog-slide-right {
+        transform: translateX(0%);
+      }
+    }
+  }
+
+  .sponsored-info {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    max-width: 100%;
+    .sponsored-title {
+      color: #4B4F58;
+      font-weight: 700;
+    }
+    .paymentplus-logo{
+      width: 100%;
+    }
+  }

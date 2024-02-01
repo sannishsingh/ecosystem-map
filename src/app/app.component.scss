@@ -1,0 +1,479 @@
+.header{
+  display: flex;
+  justify-content: space-between;
+  .buttons{
+    margin-right: 10px;
+    margin-top: 10px;
+    border: 1px dashed #c0dbc0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+  #ecosystem-map-circle {
+    position: relative;
+    text-align: center;
+    padding: 50px;
+  }
+  
+  .ecosystem-map-content {
+    width: 1000px;
+    height: 1000px;
+    display: inline-block;
+    position: relative;
+    box-sizing: content-box;
+    // circular
+    // border-radius: 50%;
+    // border: solid 2px #7c7c7c;
+  }
+
+  .ecosystem-map-content .wrap-slice {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+  }
+
+  .ecosystem-map-content .wrap-slice.ws-right {
+    left: 50%;
+  }
+  .slice {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 2px solid #7C7C7C;
+    z-index: 1;
+    pointer-events: none;
+     /* disable pointer events on the slice */
+  }
+
+  .slice .slice-content {
+    position: relative;
+    transform-origin: inherit;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    text-align: left;
+    padding-left: 3px;
+  }
+
+  .slice.top.right {
+    transform-origin: left 100%;
+    overflow: hidden;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+  }
+  
+  .logos {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .logo-col {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .logo-item {
+    padding: 4px;
+    pointer-events: auto;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .cat-title {
+    text-transform: uppercase;
+    padding: 4px;
+    display: inline-block;
+    border-radius: 5px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    z-index: 2;
+    pointer-events: auto;
+    font-size: 10px;
+    color: #fff;
+    span {
+      display: inline-block;
+    }
+  }
+
+  .center-aus-map {
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    top: 53%;
+    left: 51%;
+    transform: translate(-50%, -50%);
+    background-image: url(../assets/logo.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 4;
+  }
+
+  .logo-placeholder {
+    color: #fff; 
+    font-size: 12px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+    .logo-title {
+      background-color: #007bff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      border-radius: 5px;
+    }
+   
+  }
+
+  // Css for zoom in zoom out
+  .zoomable {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .filter-section {
+    width: 98%;
+    margin: auto;
+    display: flex;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .form-item {
+      margin: 0.5rem .5rem 0 .5rem;
+      font-size: 12px;
+    }
+
+    .left {
+      display: flex;
+      .filter-fields {
+        display: flex;
+      }
+    }
+    .right {
+      display: flex;
+    }
+  }
+
+  .directory {
+      width: 97%;
+      margin: auto;
+      padding-bottom: 10rem;
+      display: flex;
+    .dir-menu {
+        width: 15%;
+        margin-top: 2.3rem;
+        .menu-item {
+          color: #393087;;
+          width: 100%;
+          text-align: center;
+          font-weight: 700;
+          font-size: 20px;
+          padding: 2rem .5rem;
+          background-color: #d9d9d9;
+          line-height: 25px;
+          &:hover {
+            background-color: #393087;
+            color: #fff;
+          }
+        }
+        .line-separator{
+            margin: 0;
+        }
+        .active {
+          background-color: #393087;
+          color: #fff;
+        }
+      }
+
+      .dir-content {
+        width: 85%;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        .dir-header{
+          display: flex;
+          flex-direction: column;
+          margin-top: 1rem;
+          .header-title {
+            padding-left: 2rem;
+            color: #393087;
+            font-weight: bold;
+            font-size: 30px;
+          }
+        }
+        .dir-logos {
+          padding: 2rem;
+          .companies {
+            display: flex;
+            flex-wrap: wrap;
+            .company-logo {
+                height: 4rem;
+                width: 8rem;
+                margin: 1rem;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+
+            .logo-placeholder {
+                color: #fff; 
+                font-size: 12px; 
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                pointer-events: auto;
+                .logo-title {
+                  background-color: #007bff;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  text-transform: uppercase;
+                  border-radius: 5px;
+                  height: 3rem;
+                  width: 6rem;
+                  margin: 0.6rem;
+                  &:hover {
+                    transform: scale(1.1);
+                }
+                }
+              }
+          }
+        }
+      }
+  }
+
+  .menu-wrapper {
+    height: 47px;
+    display: flex;
+    align-items: center;
+    mat-icon {
+      font-size: 30px;
+    }
+ }
+
+ .custom-dialog-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  .mat-dialog-container {
+    width: 400px;
+    max-width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .mat-dialog-container:enter {
+    animation: slideRightToLeft 300ms ease-out;
+  }
+
+  .mat-dialog-container:leave {
+    animation: slideRightToLeft 300ms ease-out;
+  }
+}
+
+.finTech-logo {
+  width: 10rem;
+}
+
+.header-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  .line {
+    display: inline-block;
+    width: 100%;
+    max-width: calc(100% - 30px);
+    height: 3px;
+    background-color: #393087;
+    border: none;
+    margin: 0;
+    vertical-align: middle;
+  }
+}
+
+.sub-categories {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  .cat-item {
+      background-color: #d9d9d9;
+      align-items: center;
+      font-weight: 700;
+      border-radius: 4px;
+      font-size: 11px;
+      color:#393087;
+      padding: 7px;
+      display: inline-block;
+      margin-right: 4px;
+      margin-bottom: 4px;
+      .item-content{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 100%;
+          text-transform: uppercase;
+      }
+
+      &:hover {
+        background-color: #53afa8;
+        color: #fff;
+      }
+  }
+  .active {
+    background-color: #53afa8;
+    color: #fff;
+  }
+}
+
+.sub-categories-segments {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  .cat-item {
+      background-color: #d9d9d9;
+      align-items: center;
+      font-weight: 700;
+      border-radius: 4px;
+      font-size: 11px;
+      color:#393087;
+      padding: 7px;
+      display: inline-block;
+      margin-right: 4px;
+      margin-bottom: 4px;
+      .item-content{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 100%;
+          text-transform: uppercase;
+      }
+
+      &:hover {
+        background-color: #414042;
+        color: #fff;
+      }
+  }
+  .active {
+    background-color: #414042;
+    color: #fff;
+  }
+}
+
+// Mobile css
+
+@media (max-width: 768px) {
+  .zoomable {
+      overflow: scroll;
+      position: relative;
+  }
+
+  .filter-section {
+    .form-item {
+      width: 100%;
+      .menu-wrapper {
+        .finTech-logo {
+          width: 12rem;
+        }
+      }
+      .mat-form-field {
+        width: 100%;
+      }
+    }
+
+    .left {
+      display: flex;
+      width: 85%;
+      flex-wrap: wrap;
+    }
+    .right {
+      display: flex;
+      width: 12%;
+    }
+  }
+
+  .directory {
+    .dir-menu {
+      width: 40%!important;
+      .menu-item {
+        font-size: 15px;
+        padding: 0.5rem 0.5rem;
+        line-height: 20px;
+      }
+    }
+
+    .dir-content {
+      padding: 0px;
+      .dir-header{
+        margin-top: 2rem;
+        .header-title {
+          padding-left: 1rem;
+          font-size: 20px;
+          margin-bottom: 0.5rem;
+        }
+      }
+      .dir-logos {
+        padding: 0rem;
+        .companies {
+          width: 90%;
+          justify-content: space-between;
+          margin-left: 1rem;
+          .company-logo {
+            height: 2rem;
+            width: 3.2rem;
+            margin: 0.5rem;
+          }
+
+          .logo-placeholder {
+            
+              .logo-title {
+                
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .sub-categories {
+    margin-left: 1rem;
+    .cat-item {
+      width: 94%;
+        .item-content{
+           
+        }
+  
+    }
+  }
+
+  .sub-categories-segments {
+    margin-left: 1rem;
+    .cat-item {
+      width: 94%;
+      .item-content{
+         
+      }
+    }
+  }
+}
